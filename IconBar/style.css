@@ -1,0 +1,53 @@
+/* Vertical Icon Bar */
+
+.icon-bar {
+    width: 90px; /* 특정 너비 설정 */
+    background-color: darkgray; /* 백그라운드 색 지정 */
+}
+
+.icon-bar a {
+    display: block;/*  블록 레벨로 지정 */
+    text-align: center;
+    padding: 16px;
+    color: white;
+    font-size: 36px;
+    
+}
+
+.icon-bar a:hover { 
+    background-color: #000;
+    transition: all 0.3s ease; 
+}
+
+.active {
+    /* JS로 이거 이용해서 액티브 색 표현 하는 듯 */
+    background-color: #04AA6D;
+}
+
+/* Vertical Icon Bar End */
+
+/* Horizontal Icon Bar */
+
+.H_icon-bar {
+    width: 100%;
+    background-color: darkgray;
+    overflow: auto;
+}
+
+.H_icon-bar a {
+    float: left;
+    text-align: center;
+    width: 20%; /* 5개가 각각 20%씩 해서 총 100% */
+    padding: 12px 0;
+    color: white;
+    font-size: 36px;
+    
+}
+
+.H_icon-bar a:hover { 
+    background-color: #000;
+    transition: all 0.3s ease;
+}
+
+
+/* Horizontal Icon Bar End */
