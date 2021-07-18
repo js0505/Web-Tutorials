@@ -1,57 +1,55 @@
-const players = document.querySelector('.players');
-const nowPlayer = document.querySelector('.order');
-const wordPresenter = document.querySelector('.word');
-const wordInput = document.querySelector('.word-input');
-const button = document.querySelector('button');
-const game = true;
-
-const player = parseInt(prompt('참가인원'))
-
-const setPlayer = () => {
-    players.textContent = `총 ${player}명의 참가자`
-}
-
-if (typeof player === 'number') {
-    setPlayer()
-}
-
-let word;
-
-if (wordPresenter.textContent === '') {
-    word = prompt('제시어를 입력 하세요');
-    wordPresenter.textContent = word;
-}
-
-// 대기
+const $order = document.querySelector('.order'); // 참가자
+const $word = document.querySelector('.word'); // 제시어
+const $input = document.querySelector('.word-input'); // 입력창
+const $submit = document.querySelector('.submit') // 입력버튼
 
 
 
-button.addEventListener('click', function (e) {
-    e.preventDefault()
+const players = parseInt(prompt('참가자는 몇 명 입니까?'));
 
-    let confirmWord = wordInput.value;
-    
-    if (word[word.length - 1] === confirmWord[0]) {
-        word = confirmWord;
-        wordPresenter.textContent = word;
-        wordInput.value = "";
-        wordInput.focus()
-        
-        const nowPlayerNumber = parseInt(nowPlayer.textContent);
+//인풋에 입력되는 단어
+let newWord;
 
-        if (nowPlayerNumber + 1 <= player) {
-            nowPlayer.textContent =  nowPlayerNumber + 1
-        } else {
-            nowPlayer.textContent = 1;
-        }
+//입력마다 단어를 저장하는 배열
+const saveWord = [];
 
-    } else {
-        alert(`
-        player ${nowPlayer.textContent} loose!
-        Game Over
-        `)
-    }
-    
+//입력 들어오면 newWord에 현재 입력값 저장.
+$input.addEventListener('input', (e) => {
+    newWord = e.target.value
 })
 
+$submit.addEventListener('click', () => {
+    
+    //제시어가 비어있거나, 제시어의 마지막 글자와 현재 입력값의 첫 글자가 같다면
+    if ($word.textContent === "" || $word.textContent[$word.textContent.length - 1] === newWord[0]) {
+        
+        //이미 제시된 단어인지 확인
+        if (saveWord.includes(newWord, 0)) {
+            alert('이미 제시된 단어입니다.')
+            $input.focus()
+            
+        } else {
+            saveWord.push(newWord); // 새 단어를 배열에 저장
+            $word.textContent = newWord.value; // 제시어에 단어 업데이트
+            $input.value = ""; // 입력창 초기화
+            $input.focus() //입력창 포커싱. 다음 입력 용이
 
+            //다음 순서 검사
+            if (parseInt($order.textContent) < players) {
+                //현재 순서가 총 인원 수 보다 작으면
+                //현재 순서 + 1
+            $order.textContent = parseInt($order.textContent) + 1;
+            } else {
+                //현재 순서가 총 인원수를 넘어가면 
+                // 다시 첫번째로.
+                $order.textContent = 1;
+            }
+        }
+    } else {
+        alert('잘못된 입력입니다.')
+        $input.value = "";
+        $input.focus()
+    }
+
+
+})
