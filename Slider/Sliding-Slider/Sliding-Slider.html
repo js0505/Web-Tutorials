@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding-Slider</title>
+</head>
+<body>
+    <style>
+        .section {
+            overflow: hidden;
+            width: 800px;
+            margin: 0 auto;
+        }
+    
+        .container {
+            width: 500vw;
+            display: flex;
+        }
+    
+        .slide-item {
+            color: white;
+            width: 100vw;
+            height: 400px;
+        }
+    
+        .slide-item:nth-child(odd) {
+            background-color: steelblue;
+        }
+    
+        .slide-item:nth-child(even) {
+            background-color: teal;
+        }
+        .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.3s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        }
+
+        .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, 
+        .next:hover {
+        background-color: rgba(116, 69, 69, 0.4);
+        }
+    </style>
+    <div class="section">
+        <div class="container">
+            <a class="prev">&#10094;</a>
+            <a class="next">&#10095;</a>
+            <div class="slide-item">1</div>
+            <div class="slide-item">2</div>
+            <div class="slide-item">3</div>
+            <div class="slide-item">4</div>
+            <div class="slide-item">5</div>
+        </div>
+        
+    </div>
+
+    <script>
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        const slides = document.querySelectorAll(".slide-item");
+
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        prevBtn.addEventListener('click', function () {
+            showSlides(slideIndex += -1);
+        })
+
+        nextBtn.addEventListener('click', function () {
+            showSlides(slideIndex += 1);
+        })
+
+        function showSlides(n) {
+            // 슬라이드가 길이보다 커지면 1로 돌아가게
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            // 슬라이드가 1 이전으로 넘어가면 제일 마지막 슬라이드로 넘어가게
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+
+            //  전체 슬라이드를 다 none으로 만들고
+            //  밑에서 인덱스에 맞는 슬라이드만 block
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            slides[slideIndex - 1].style.display = "block";
+            
+        }
+    </script>
+</body>
+</html>
